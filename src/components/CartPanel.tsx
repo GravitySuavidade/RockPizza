@@ -16,27 +16,27 @@ export function CartPanel({ isOpen, onClose, onEditItem }: CartPanelProps) {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose} />
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-rock-surface shadow-2xl border-l border-white/10 flex flex-col animate-in slide-in-from-right-full duration-300">
+      <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm transition-opacity" onClick={onClose} />
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-black/95 backdrop-blur-md shadow-2xl border-l border-white/10 flex flex-col animate-in slide-in-from-right-full duration-300">
         
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-rock-bg/50">
-          <h2 className="text-2xl font-display uppercase tracking-wider text-rock-text flex items-center gap-3">
+        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/50">
+          <h2 className="text-3xl font-display uppercase tracking-tighter flex items-center gap-4 text-white">
             O Teu Carrinho
-            <span className="bg-rock-red text-white text-xs px-2 py-1 rounded-full">{items.length}</span>
+            <span className="bg-rock-red text-white text-lg px-3 py-1 rounded-full">{items.length}</span>
           </h2>
-          <button onClick={onClose} className="p-2 text-rock-muted hover:text-rock-red transition-colors rounded-full hover:bg-white/5">
+          <button onClick={onClose} className="p-2 text-rock-muted hover:text-white transition-colors rounded-full hover:bg-white/10">
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
           {items.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-50">
-              <span className="text-6xl">🤘</span>
-              <p className="text-xl font-display uppercase text-rock-muted">O teu carrinho está vazio.<br/>Vamos fazer barulho.</p>
-              <button onClick={onClose} className="btn-secondary mt-4">Ver Menu</button>
+            <div className="h-full flex flex-col items-center justify-center text-center space-y-6 opacity-50">
+              <span className="text-8xl animate-pulse">🤘</span>
+              <p className="text-3xl font-display uppercase text-rock-muted">O teu carrinho está vazio.<br/>Vamos fazer barulho.</p>
+              <button onClick={onClose} className="btn-secondary mt-4 text-xl px-8 py-4 rounded-xl">VER MENU</button>
             </div>
           ) : (
             items.map((item) => {
@@ -46,17 +46,17 @@ export function CartPanel({ isOpen, onClose, onEditItem }: CartPanelProps) {
               if (!menuItem) return null;
 
               return (
-                <div key={item.id} className="card-rock p-4 flex flex-col gap-3 border-white/10 bg-rock-bg/30">
+                <div key={item.id} className="card-rock p-5 flex flex-col gap-4 border border-white/10 rounded-2xl bg-white/5 hover:border-white/30 hover:bg-white/10 transition-colors">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-lg font-display uppercase text-rock-text">
+                      <h3 className="text-xl font-display uppercase text-white tracking-wide">
                         {item.mode === 'half' ? `${menuItem.name} / ${flavorB?.name}` : menuItem.name}
                       </h3>
-                      <p className="text-xs text-rock-muted font-sans mt-1">
+                      <p className="text-sm text-rock-muted font-mono mt-2 uppercase tracking-wider">
                         {item.size} • {item.crust} • {item.sauce}
                       </p>
                       {item.toppings.length > 0 && (
-                        <p className="text-xs text-rock-muted/70 font-sans mt-1">
+                        <p className="text-xs text-rock-muted/70 font-mono mt-2 border-l border-white/20 pl-2">
                           + {item.toppings.map(t => {
                             const td = TOPPINGS.find(d => d.id === t.toppingId);
                             return td ? `${td.name} (${t.scope})` : '';
@@ -64,34 +64,36 @@ export function CartPanel({ isOpen, onClose, onEditItem }: CartPanelProps) {
                         </p>
                       )}
                     </div>
-                    <span className="font-display text-rock-green text-lg">
+                    <span className="font-display text-rock-green text-2xl">
                       €{(item.pricingSnapshot.subtotal * item.quantity).toFixed(2)}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between mt-2 pt-3 border-t border-white/5">
-                    <div className="flex items-center gap-2 bg-rock-surface rounded-lg border border-white/10 p-1">
-                      <button
-                        onClick={() => item.quantity > 1 ? updateQuantity(item.id, item.quantity - 1) : removeItem(item.id)}
-                        className="p-1 text-rock-muted hover:text-white transition-colors"
-                      >
-                        {item.quantity > 1 ? <Minus className="w-4 h-4" /> : <Trash2 className="w-4 h-4 text-rock-red" />}
-                      </button>
-                      <span className="w-6 text-center font-sans font-bold text-sm">{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="p-1 text-rock-muted hover:text-white transition-colors"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </button>
+                  <div className="flex items-center justify-between mt-2 pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center border border-white/20 rounded-lg bg-black/50 overflow-hidden">
+                        <button
+                          onClick={() => item.quantity > 1 ? updateQuantity(item.id, item.quantity - 1) : removeItem(item.id)}
+                          className="p-2 text-rock-muted hover:text-white hover:bg-white/10 transition-colors border-r border-white/20"
+                        >
+                          {item.quantity > 1 ? <Minus className="w-4 h-4" /> : <Trash2 className="w-4 h-4 text-rock-red" />}
+                        </button>
+                        <span className="w-10 text-center font-mono font-bold text-lg text-white">{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="p-2 text-rock-muted hover:text-white hover:bg-white/10 transition-colors border-l border-white/20"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => onEditItem(item)}
-                        className="p-2 text-rock-muted hover:text-rock-orange transition-colors rounded-lg hover:bg-white/5"
+                        className="p-2 text-rock-muted hover:text-white transition-colors rounded-lg hover:bg-white/10"
                         aria-label="Edit item"
                       >
-                        <Edit2 className="w-4 h-4" />
+                        <Edit2 className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
@@ -103,25 +105,25 @@ export function CartPanel({ isOpen, onClose, onEditItem }: CartPanelProps) {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="p-6 border-t border-white/10 bg-rock-surface/95 backdrop-blur-md space-y-4">
-            <div className="flex justify-between items-center text-sm font-sans text-rock-muted">
+          <div className="p-6 border-t border-white/10 bg-black/50 space-y-4 backdrop-blur-md">
+            <div className="flex justify-between items-center text-sm font-mono text-rock-muted uppercase tracking-wider">
               <span>Subtotal</span>
               <span>€{getTotal().toFixed(2)}</span>
             </div>
-            <div className="flex justify-between items-center text-sm font-sans text-rock-muted">
+            <div className="flex justify-between items-center text-sm font-mono text-rock-muted uppercase tracking-wider">
               <span>Taxa de Entrega</span>
               <span>€2.50</span>
             </div>
-            <div className="flex justify-between items-center text-xl font-display text-rock-text pt-2 border-t border-white/10">
+            <div className="flex justify-between items-center text-3xl font-display text-white pt-4 border-t border-white/10">
               <span>Total</span>
               <span className="text-rock-green">€{(getTotal() + 2.50).toFixed(2)}</span>
             </div>
             <Link
               to="/checkout"
               onClick={onClose}
-              className="btn-primary w-full flex justify-center items-center gap-2 mt-4"
+              className="btn-primary w-full flex justify-center items-center gap-2 mt-6 text-xl py-4 rounded-xl"
             >
-              Finalizar Pedido
+              FINALIZAR PEDIDO
             </Link>
           </div>
         )}

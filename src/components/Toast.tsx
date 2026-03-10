@@ -20,12 +20,14 @@ export function Toast({ message, isVisible, onClose }: ToastProps) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-10 fade-in duration-300">
-      <div className="bg-rock-surface border border-rock-green/30 shadow-[0_4px_20px_rgba(166,255,0,0.15)] rounded-full px-4 py-3 flex items-center gap-3">
-        <CheckCircle2 className="w-5 h-5 text-rock-green" />
-        <span className="font-sans text-sm font-medium text-rock-text whitespace-nowrap">{message}</span>
-        <button onClick={onClose} className="text-rock-muted hover:text-white transition-colors ml-2">
-          <X className="w-4 h-4" />
+    <div className="fixed bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-20 fade-in duration-300">
+      <div className="bg-black/95 backdrop-blur-md border border-rock-green/50 rounded-2xl shadow-2xl px-6 py-4 flex items-center gap-4 min-w-[300px]">
+        <div className="bg-rock-green/20 text-rock-green rounded-full p-1">
+          <CheckCircle2 className="w-6 h-6" />
+        </div>
+        <span className="font-display uppercase text-lg text-white tracking-wider flex-1">{message}</span>
+        <button onClick={onClose} className="text-rock-muted hover:text-white transition-colors rounded-full hover:bg-white/10 p-1">
+          <X className="w-5 h-5" />
         </button>
       </div>
     </div>

@@ -1,58 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Anton", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-rock-bg: #0B0B0F;
-  --color-rock-surface: #12121A;
-  --color-rock-text: #F2F2F2;
-  --color-rock-muted: #8E8E99;
+  --color-rock-bg: #050505;
+  --color-rock-surface: #111111;
+  --color-rock-text: #FFFFFF;
+  --color-rock-muted: #888888;
   
-  --color-rock-red: #FF2A2A;
-  --color-rock-orange: #FF6A00;
-  --color-rock-green: #A6FF00;
+  --color-rock-red: #FF0033;
+  --color-rock-orange: #FF5500;
+  --color-rock-green: #CCFF00;
+  --color-rock-yellow: #FAFF00;
 }
 
 @layer base {
   body {
     @apply bg-rock-bg text-rock-text font-sans antialiased;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    background-image: 
+      linear-gradient(rgba(5, 5, 5, 0.95), rgba(5, 5, 5, 0.95)),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
     background-attachment: fixed;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-wide uppercase;
+    @apply font-display tracking-tight uppercase;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-rock-bg border-l border-white/5;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-rock-red/50 hover:bg-rock-red;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-rock-red text-white font-display uppercase tracking-wider px-6 py-3 rounded-xl transition-all duration-200 hover:bg-red-600 hover:shadow-[0_0_15px_rgba(255,42,42,0.4)] active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    @apply relative bg-rock-red text-white font-display uppercase tracking-wider px-8 py-4 text-lg transition-all duration-200 
+    hover:bg-rock-red/90 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(255,0,51,0.5)]
+    active:translate-y-0 active:shadow-none
+    disabled:opacity-50 disabled:pointer-events-none
+    border border-transparent;
   }
   
   .btn-secondary {
-    @apply bg-rock-surface text-rock-text border border-white/10 font-sans font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:border-rock-red/50 hover:bg-white/5 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    @apply relative bg-transparent text-white border border-white/30 font-display uppercase tracking-wider px-8 py-4 text-lg transition-all duration-200
+    hover:bg-white hover:text-rock-bg hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(255,255,255,0.3)]
+    active:translate-y-0 active:shadow-none
+    disabled:opacity-50 disabled:pointer-events-none;
   }
   
   .card-rock {
-    @apply bg-rock-surface rounded-2xl border border-white/5 shadow-lg transition-all duration-300 hover:border-rock-red/30 hover:shadow-[0_4px_20px_rgba(255,42,42,0.1)];
+    @apply bg-rock-surface border border-white/10 shadow-none transition-all duration-300 
+    hover:border-rock-red/50 hover:shadow-[0_10px_30px_-10px_rgba(255,0,51,0.15)] hover:-translate-y-1;
+  }
+
+  .input-rock {
+    @apply w-full bg-black border border-white/20 px-4 py-3 text-rock-text font-mono text-sm uppercase placeholder:text-rock-muted/50
+    focus:border-rock-red focus:outline-none focus:shadow-[0_0_0_1px_rgba(255,0,51,1)] transition-all;
   }
   
   .badge-rock {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider;
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-white/20 bg-black text-white font-mono;
   }
   
   .badge-spicy {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-rock-orange/20 text-rock-orange border border-rock-orange/30;
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-rock-red/50 bg-rock-red/10 text-rock-red font-mono;
   }
   
   .badge-veg {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-rock-green/20 text-rock-green border border-rock-green/30;
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-rock-green/50 bg-rock-green/10 text-rock-green font-mono;
   }
   
   .badge-new {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-rock-red/20 text-rock-red border border-rock-red/30;
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-rock-yellow/50 bg-rock-yellow/10 text-rock-yellow font-mono;
+  }
+
+  /* Utility Classes for Rock Theme */
+  .text-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    color: transparent;
+  }
+  
+  .text-outline-red {
+    -webkit-text-stroke: 1px var(--color-rock-red);
+    color: transparent;
+  }
+
+  .neon-glow {
+    text-shadow: 0 0 20px rgba(255,0,51,0.4);
+  }
+  
+  .neon-glow-green {
+    text-shadow: 0 0 20px rgba(204,255,0,0.4);
+  }
+
+  .glitch-hover:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-1px, 1px) }
+    40% { transform: translate(-1px, -1px) }
+    60% { transform: translate(1px, 1px) }
+    80% { transform: translate(1px, -1px) }
+    100% { transform: translate(0) }
   }
 }

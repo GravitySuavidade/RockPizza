@@ -18,7 +18,7 @@ export interface MenuItem {
   id: string;
   name: string;
   description: string;
-  category: 'Pizzas' | 'Massas' | 'Lasanhas' | 'Bebidas' | 'Sobremesas';
+  category: 'Pizzas' | 'Bebidas' | 'Sobremesas';
   tags: ('picante' | 'veg' | 'novo' | 'popular')[];
   basePrices: Partial<Record<Size, number>>;
   imageUrl: string;
@@ -91,40 +91,26 @@ export const MENU_ITEMS: MenuItem[] = [
     availableSauces: ['BBQ'],
   },
   {
-    id: 'm1',
-    name: 'Mac & Cheese Distorção',
-    description: 'Macarrão com uma mistura de 4 queijos derretidos, crosta de pão de alho e bacon crocante.',
-    category: 'Massas',
+    id: 'p5',
+    name: 'The Trooper',
+    description: 'Carne de vaca picada, chouriço, pimentos assados e molho de alho.',
+    category: 'Pizzas',
     tags: ['popular'],
-    basePrices: { Único: 12 },
-    imageUrl: 'https://images.unsplash.com/photo-1543339494-b4cd4f7ba686?q=80&w=800&auto=format&fit=crop',
+    basePrices: { S: 11, M: 15, L: 19, Familiar: 24 },
+    imageUrl: 'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=800&auto=format&fit=crop',
+    availableCrusts: ['Clássica', 'Fina', 'Recheada'],
+    availableSauces: ['Tomate', 'Branco'],
   },
   {
-    id: 'm2',
-    name: 'Spaghetti Riff',
-    description: 'Spaghetti clássico com almôndegas de carne picante e molho de tomate intenso.',
-    category: 'Massas',
-    tags: ['picante'],
-    basePrices: { Único: 11 },
-    imageUrl: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'l1',
-    name: 'Lasanha Heavy Metal',
-    description: 'Camadas de massa fresca, carne de vaca estufada lentamente, bechamel e muito queijo.',
-    category: 'Lasanhas',
-    tags: ['popular'],
-    basePrices: { Único: 14 },
-    imageUrl: 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?q=80&w=800&auto=format&fit=crop',
-  },
-  {
-    id: 'l2',
-    name: 'Lasanha Acústica (Veg)',
-    description: 'Lasanha vegetariana com espinafres, ricota, cogumelos e molho de tomate.',
-    category: 'Lasanhas',
-    tags: ['veg'],
-    basePrices: { Único: 13 },
-    imageUrl: 'https://images.unsplash.com/photo-1621510456681-2330135e5871?q=80&w=800&auto=format&fit=crop',
+    id: 'p6',
+    name: 'Master of Puppets',
+    description: 'Quatro queijos intensos, alho esmagado, orégãos e azeitonas pretas.',
+    category: 'Pizzas',
+    tags: ['veg', 'novo'],
+    basePrices: { S: 10, M: 14, L: 18, Familiar: 22 },
+    imageUrl: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop',
+    availableCrusts: ['Clássica', 'Fina'],
+    availableSauces: ['Tomate', 'Branco'],
   },
   {
     id: 's1',
